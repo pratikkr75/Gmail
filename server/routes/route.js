@@ -1,6 +1,6 @@
 import express from 'express';
 import { saveSentEmails, getEmails, moveEmailsToBin, toggleStarredEmails, deleteEmails } from '../controller/email-controller.js';
-import Emails from '../../client/src/components/Emails.jsx';
+
 
 
 const routes = express.Router();

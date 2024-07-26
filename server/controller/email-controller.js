@@ -1,4 +1,3 @@
-import email from "../models/email.js";
 import Email from "../models/email.js";
 
 

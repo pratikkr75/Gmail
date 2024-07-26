@@ -1,10 +1,14 @@
-import  mongoose  from "mongoose";
+import mongoose from "mongoose";
+import dotenv from 'dotenv';
 
-
+dotenv.config();
 
 const Connection = async () => {
+    const username = encodeURIComponent(process.env.DB_USERNAME);
+    const password = encodeURIComponent(process.env.DB_PASSWORD);
+    const cluster = process.env.DB_CLUSTER;
 
-    const DB_URI = `mongodb+srv://pratikkr75:3559prateek@cluster0.bxtjqzg.mongodb.net/?retryWrites=true&w=majority`;
+    const DB_URI = `mongodb+srv://${username}:${password}@${cluster}/?retryWrites=true&w=majority`;
 
     try {
         await mongoose.connect(DB_URI, { useNewUrlParser: true });
@@ -14,7 +18,4 @@ const Connection = async () => {
     }
 }
 
-
 export default Connection;
-
-
