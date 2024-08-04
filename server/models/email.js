@@ -13,7 +13,7 @@ const EmailSchema = new mongoose.Schema({
     subject: String,
     body: String,
     date: {
-        type: String,
+        type: Date,
         required: true
     },
     image: String,

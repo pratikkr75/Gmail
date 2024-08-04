@@ -74,7 +74,7 @@ const ComposeMail = ({ openDialog, setOpenDialog }) => {
             from: 'pratikkr75@gmail.com',
             subject: data.subject,
             body: data.body,
-            date: new Date(),
+            date: new Date().toISOString(), // Send as ISO string
             image: '',
             name: 'Pratik Kumar',
             starred: false,
@@ -116,7 +116,7 @@ const ComposeMail = ({ openDialog, setOpenDialog }) => {
             from: 'pratikkr75@gmail.com',
             subject: data.subject,
             body: data.body,
-            date: new Date(),
+            date: new Date().toISOString(), // Send as ISO string
             image: '',
             name: 'Pratik Kumar',
             starred: false,

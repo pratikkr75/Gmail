@@ -57,13 +57,49 @@ const Email = ({ email, selectedEmails, setRefreshScreen, setSelectedEmails }) =
         }
     }
 
+    
     const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        if (isNaN(date.getTime())) {
+        console.log('Received dateString:', dateString);
+        
+        if (!dateString) {
+            console.log('dateString is falsy');
             return 'Invalid Date';
         }
-        return `${date.getDate()} ${date.toLocaleString('default', { month: 'long' })}`;
+        
+        let date;
+        try {
+            // Check if dateString is already a Date object
+            if (Object.prototype.toString.call(dateString) === '[object Date]') {
+                console.log('dateString is already a Date object');
+                date = dateString;
+            } else if (typeof dateString === 'string') {
+                // If it's a string, try to parse it
+                // Remove any trailing 'Z' to avoid double UTC conversion
+                const cleanDateString = dateString.replace(/Z$/, '');
+                date = new Date(cleanDateString);
+            } else {
+                // If it's neither a string nor a Date, throw an error
+                throw new Error('Unsupported date format');
+            }
+            
+            if (isNaN(date.getTime())) {
+                throw new Error('Invalid date');
+            }
+        } catch (error) {
+            console.error('Error parsing date:', error);
+            return 'Invalid Date';
+        }
+        
+        console.log('Parsed date:', date);
+        
+        // Format the date
+        const day = date.getUTCDate();
+        const month = date.toLocaleString('default', { month: 'long', timeZone: 'UTC' });
+        return `${day} ${month}`;
     }
+
+    // console.log('Email object:', email);
+
 
     return (
         <Wrapper>

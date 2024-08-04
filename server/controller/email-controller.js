@@ -4,7 +4,10 @@ import Email from "../models/email.js";
 
 export const saveSentEmails = (request, response) => {
     try {
-        const email = new Email(request.body);
+        const email = new Email({
+            ...request.body,
+            date: new Date(request.body.date) // Ensure date is converted to Date object
+        });
         email.save();
 
         response.status(200).json('email saved successfully');
@@ -28,8 +31,14 @@ export const getEmails = async (request, response) => {
             emails = await Email.find({ type: request.params.type });
         }
 
+        const formattedEmails = emails.map(email => ({
+            ...email.toObject(),
+            date: email.date.toISOString() // Ensure date is sent as ISO string
+        }));
 
-        return response.status(200).json(emails);
+        console.log('Sending emails:', formattedEmails);
+
+        return response.status(200).json(formattedEmails);
     } catch (error) {
         console.log(error);
         response.status(500).json(error.message);
